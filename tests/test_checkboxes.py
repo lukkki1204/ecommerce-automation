@@ -16,9 +16,10 @@ def test_checkbox_click(driver):
     assert checkbox1.is_selected()
 
     checkbox2 = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, "(//input[@type='checkbox'])[1]"))
+        EC.element_to_be_clickable((By.XPATH, "(//input[@type='checkbox'])[2]"))  # poprawka na [2]
     )
 
     if not checkbox2.is_selected():
         checkbox2.click()
-    assert checkbox2.is_selected
+
+    assert checkbox2.is_selected()

@@ -7,18 +7,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-@pytest.fixture
-def driver():
-    # Set Chrome options to make sure it's NOT headless
-    options = webdriver.ChromeOptions()
-    options.headless = False  # Make sure headless mode is off
-
-    # Initialize Chrome, driver is controller of a browser using python, thanks to it we can manipulate websites, its an object 
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    driver.maximize_window()
-    yield driver
-    driver.quit()
-
 def test_open_login_page(driver):
     #We are using get method to open website
     driver.get("https://demo.opencart.com/") 
