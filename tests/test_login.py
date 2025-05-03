@@ -1,27 +1,24 @@
-import pytest
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
-import time
+from selenium.webdriver.common.keys import Keys
 
 def test_open_login_page(driver):
-    #We are using get method to open website
-    driver.get("https://demo.opencart.com/") 
-    time.sleep(5)  # Wait 5 seconds to see the browser
+    driver.get("https://example.com/login")  # Podmień na URL strony logowania
 
-    #We are defining checkbox by waiting until its visible 
-    #EC is Expected Conditions it contains different conditions of waiting
-    checkbox = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.TAG_NAME, "input"))
-    )
-    checkbox.click()
+    assert "Login" in driver.title  # Sprawdza, czy tytuł strony zawiera słowo "Login"
 
-    email_field = driver.find_element(By.NAME, "email")
-    assert email_field.is_displayed()
+def test_login(driver):
+    driver.get("https://example.com/login")  # Podmień na URL strony logowania
 
-    time.sleep(3)  # Wait before closing (so you can see the result)
+    # Znajdź pola logowania (np. username i password)
+    username_field = driver.find_element(By.NAME, "username")  # Zmienna zależna od strony
+    password_field = driver.find_element(By.NAME, "password")  # Zmienna zależna od strony
 
+    # Wprowadź dane logowania
+    username_field.send_keys("testuser")
+    password_field.send_keys("password123")
 
+    # Zatwierdź formularz (np. klawiszem Enter)
+    password_field.send_keys(Keys.RETURN)
+
+    # Sprawdzenie, czy po zalogowaniu jesteśmy na stronie głównej lub innej stronie potwierdzającej logowanie
+    assert "Dashboard" in driver.title  # Podmień na odpowiednią stronę po zalogowaniu
